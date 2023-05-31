@@ -36,7 +36,7 @@ public class MemeModule {
     @Provides
     @Named("listModel")
     @Singleton
-    public DefaultListModel<String> listModel(){
+    public DefaultListModel<String> listModel() {
         return new DefaultListModel<>();
 
     }

@@ -4,6 +4,7 @@ public class MemeList
 {
 
     Data data;
+
     public MemeList(Data data) {
         this.data = data;
     }

@@ -13,6 +13,7 @@ public class MemeFrame extends JFrame
     MemeList memeList;
     private final JList<String> nameList;
     private final DefaultListModel<String> listModel;
+
     @Inject
     public MemeFrame(
             MemeController controller,
@@ -57,21 +58,19 @@ public class MemeFrame extends JFrame
         nameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         nameList.setLayoutOrientation(JList.VERTICAL);
 
-        controller.addToList();
-
         JScrollPane listScroller = new JScrollPane(nameList,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         listScroller.setPreferredSize(new Dimension(200, 80));
 
         textPanel.add(listScroller, BorderLayout.EAST);
-        controller.updateImage("Drake Hotline Bling");
+        controller.addAndUpdateImage("Drake Hotline Bling");
 
         MouseListener mouseListener = new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     String selectedItem = nameList.getSelectedValue();
-                    controller.updateImage(selectedItem);
+                    controller.addAndUpdateImage(selectedItem);
                 }
             }
         };
@@ -82,66 +81,13 @@ public class MemeFrame extends JFrame
 
         refresh.addActionListener(e ->
         {
-            upperText.setEditable(true);
-            upperText.setSize(1000, 30);
-            upperText.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
-            upperText.setForeground(Color.BLACK);
-
-            lowerText.setEditable(true);
-            lowerText.setSize(1000, 30);
-            lowerText.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
-            lowerText.setForeground(Color.BLACK);
-            lowerText.setBackground(Color.WHITE);
-            controller.updateImage("Drake Hotline Bling");
+            controller.refreshMainPanel(upperText, lowerText);
+            controller.addAndUpdateImage("Drake Hotline Bling");
         });
 
         updateButton.addActionListener(e ->
         {
-            upperText.setEditable(false);
-            upperText.setSize(800, 50);
-            upperText.setFont(new Font(Font.MONOSPACED, Font.BOLD, 48));
-            upperText.setForeground(Color.BLACK);
-
-            lowerText.setEditable(false);
-            lowerText.setSize(800, 50);
-            lowerText.setFont(new Font(Font.MONOSPACED, Font.BOLD, 48));
-            lowerText.setBackground(Color.BLACK);
-            lowerText.setForeground(Color.WHITE);
+            controller.updateText(upperText, lowerText);
         });
     }
 }
-
-
-
-/*
-
-        JComboBox<String> boxOfImageNames = new JComboBox<>();
-        //this is coming back as null, getMemes is returning null
-        Memes[] memes = memeList.getData().getMemes();
-
-        //add each name to the combobox
-        for(int i = 0; i < memes.length; i++)
-        {
-            boxOfImageNames.addItem(memes[i].getName());
-        }
-
-        //if name/box is selected get name
-        boxOfImageNames.addActionListener(e ->
-        {
-            //after getting image display name
-            selectedMemeImage.setText((String) boxOfImageNames.getSelectedItem());
-            //now get the image, how?
-        });
-
-        textPanel.add(boxOfImageNames, BorderLayout.WEST);
-*/
-
-//need to figure out if there is anything i need to do in the controller
-//potentially get picture but wouldn't that be the same thing as before with calling back to api
-//ask prof?
-
-//controller.findImage(imageName.getText());
-//upperText.setFont(new Font(Font.MONOSPACED, Font.BOLD, 26));
-//upperText.setForeground(Color.WHITE);
-//lowerText.setFont(new Font(Font.MONOSPACED, Font.BOLD, 26));
-//lowerText.setForeground(Color.WHITE);

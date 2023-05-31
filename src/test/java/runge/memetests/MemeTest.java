@@ -1,3 +1,5 @@
+package runge.memetests;
+
 import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
