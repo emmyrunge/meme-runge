@@ -1,5 +1,6 @@
 package runge.memetests;
 
+import hu.akarnokd.rxjava3.swing.RxSwingPlugins;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -10,6 +11,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
@@ -19,7 +21,7 @@ public class MemeControllerTest
     static {
         //makes it so that our service returns right away
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> Schedulers.trampoline());
-        RxJavaPlugins.setNewThreadSchedulerHandler(scheduler -> Schedulers.trampoline());
+        RxSwingPlugins.setOnEdtScheduler(scheduler -> Schedulers.trampoline());
     }
 
     @Test
@@ -34,14 +36,11 @@ public class MemeControllerTest
         Observable<MemeList> observable = Observable.just(memeList);
         doReturn(observable).when(service).getMemeImage();
 
-
         //when
         controller.addAndUpdateImage("Evil Kermit");
 
-
         //then
         verify(service).getMemeImage();
-
     }
 
     @Test
@@ -54,18 +53,15 @@ public class MemeControllerTest
         MemeController controller = new MemeController(service, listModel, imageLabel);
         MemeList memeList = mock();
         Observable<MemeList> observable = Observable.just(memeList);
-        doReturn(observable).when(service).getMemeImage();
         JTextField upperText = mock();
         JTextField lowerText = mock();
+        doReturn(observable).when(service).getMemeImage();
 
         //when
-        upperText.setText("Hello");
-        lowerText.setText("World");
         controller.updateText(upperText, lowerText);
 
         //then
-        verify(upperText).setText("Hello");
-        verify(lowerText).setText("World");
+        verify(upperText).setSize(800, 50);
     }
 
     @Test
@@ -75,46 +71,19 @@ public class MemeControllerTest
         ImageService service = mock();
         DefaultListModel<String> listModel = mock();
         JLabel imageLabel = mock();
-        MemeController controller = new MemeController(service, listModel, imageLabel);
         MemeList memeList = mock();
-        Observable<MemeList> observable = Observable.just(memeList);
-        doReturn(observable).when(service).getMemeImage();
         JTextField upperText = mock();
         JTextField lowerText = mock();
 
-        //when
-        upperText.setSize(1000, 30);
-        lowerText.setSize(1000, 30);
-        controller.updateText(upperText, lowerText);
-
-        //then
-        verify(upperText).setSize(1000, 30);
-        verify(lowerText).setSize(1000, 30);
-
-    }
-
-
-    /*@Test
-    public void addToList()
-    {
-        //given
-        ImageService service = mock();
-        DefaultListModel<String> listModel = mock();
-        JLabel imageLabel = mock();
         MemeController controller = new MemeController(service, listModel, imageLabel);
-
-        Memes meme = new Memes("Evil Kermit", "https://i.imgflip.com/1e7ql7.jpg", 700, 325);
-        Data data = new Data(new Memes[]{meme});
-        MemeList memeList = new MemeList(data);
-
         Observable<MemeList> observable = Observable.just(memeList);
         doReturn(observable).when(service).getMemeImage();
 
         //when
-        controller.addToList();
+        controller.refreshMainPanel(upperText, lowerText);
 
         //then
-        verify(listModel).addElement("Evil Kermit");
+        verify(lowerText).setSize(1000, 30);
 
-    }*/
+    }
 }

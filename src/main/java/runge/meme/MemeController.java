@@ -39,40 +39,17 @@ public class MemeController
                             for (int i = 0; i < getInfo.length; i++)
                             {
                                 listModel.addElement(getInfo[i].getName());
-                            }
 
-                            for (int i = 0; i < getInfo.length; i++)
-                            {
-                                //returns null?
                                 if (imageName.equals(getInfo[i].getName()))
                                 {
-                                    String icon = getInfo[i].getUrl();
-                                    imageLabel.setIcon(new ImageIcon(new URL(icon)));
-                                    System.out.println(icon);
-                                    break;
+                                    String updatedIcon = getInfo[i].getUrl();
+                                    imageLabel.setIcon(new ImageIcon(new URL(updatedIcon)));
                                 }
                             }
                         },
                         Throwable::printStackTrace
                 );
     }
-
-    /*public void addToList()
-    {
-        Disposable disposable = service.getMemeImage()
-                .subscribeOn(Schedulers.io())
-                .observeOn(SwingSchedulers.edt())
-                .subscribe(
-                        addToList -> {
-                            for (int i = 0; i < addToList.getData().getMemes().length; i++)
-                            {
-                                listModel.addElement(addToList.getData().getMemes()[i].getName());
-                            }
-                        },
-                        Throwable::printStackTrace
-                );
-
-    }*/
     public void updateText(JTextField upperText, JTextField lowerText)
     {
         upperText.setEditable(false);

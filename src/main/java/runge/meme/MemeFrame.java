@@ -36,7 +36,7 @@ public class MemeFrame extends JFrame
 
         textPanel.add(lowerField, BorderLayout.SOUTH);
 
-        JTextField upperText = new JTextField("Enter top text here");
+        JTextField upperText = new JTextField("Enter upper text here");
         textPanel.add(upperText, BorderLayout.NORTH);
 
         JTextField lowerText = new JTextField("Enter lower text here");
@@ -68,7 +68,7 @@ public class MemeFrame extends JFrame
 
         MouseListener mouseListener = new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 1) {
                     String selectedItem = nameList.getSelectedValue();
                     controller.addAndUpdateImage(selectedItem);
                 }
@@ -82,7 +82,6 @@ public class MemeFrame extends JFrame
         refresh.addActionListener(e ->
         {
             controller.refreshMainPanel(upperText, lowerText);
-            controller.addAndUpdateImage("Drake Hotline Bling");
         });
 
         updateButton.addActionListener(e ->
