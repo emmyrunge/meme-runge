@@ -50,6 +50,7 @@ public class MemeController
                         Throwable::printStackTrace
                 );
     }
+    
     public void updateText(JTextField upperText, JTextField lowerText)
     {
         upperText.setEditable(false);
@@ -72,7 +73,7 @@ public class MemeController
         upperText.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
         upperText.setForeground(Color.BLACK);
 
-        upperText.setText("Enter lower text here");
+        lowerText.setText("Enter lower text here");
         lowerText.setEditable(true);
         lowerText.setSize(1000, 30);
         lowerText.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
