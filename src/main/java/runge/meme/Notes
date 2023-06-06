@@ -1,0 +1,34 @@
+create your own meme!
+
+
+first enter two phrases you would like to use
+--one for the top of the image
+--one for the bottom of the image
+
+then enter title to get meme image
+????(how am i going to show a list of all the different titles)
+-------assume user has a list of titles (given via list)
+-----part of a jtextfield that will search -- nope
+
+then hit the update button and watch you meme come to life!
+--image will be set as background/mainPanel
+=====white bold font
+-----if that doesnt work then two different panels that each contain textfields
+
+get open api for meme images --check
+
+
+
+create refresh to set to OG page?
+-no need just keep fields open to get new meme
+
+
+create list
+add all the info into list
+and like with weather get url for each image
+then display
+
+
+1. need to get scroll bar to get full list of image name
+2. need to set all images to be the same size
+3. need to make controller test
